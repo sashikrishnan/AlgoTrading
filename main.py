@@ -17,7 +17,7 @@ message = "📈 Hello from GitHub Actions!"
 url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
 payload = {"chat_id": chat_id, "text": message}
 
-logger.info("Sending message")
+logging.info("Sending message")
 response = requests.post(url, data=payload)
 print("Status code:", response.status_code)
 print("Response:", response.text)
