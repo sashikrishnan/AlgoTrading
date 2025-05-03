@@ -2,7 +2,8 @@ name: Run Trading Bot
 
 on:
   schedule:
-    - cron: '0,30 4-10 * * 1-5'  # Every 30 minutes from 9:30 to 3:30 IST (Mon-Fri)
+    #- cron: '0,30 4-10 * * 1-5'  # Every 30 minutes from 9:30 to 3:30 IST (Mon-Fri)
+    - cron: '*/5 * * * *'  # Every 5 minutes (for testing)
   workflow_dispatch:
 
 jobs:
