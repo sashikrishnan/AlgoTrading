@@ -1,5 +1,5 @@
-from telegram import Bot
 import os
+import requests
 
 import logging
 logging.basicConfig(level=logging.INFO)
@@ -12,7 +12,13 @@ if bot_token and chat_id:
 else:
     logging.error("❌ Missing bot token or chat ID.")
 
-# inside script:
+message = "📈 Hello from GitHub Actions!"
+
+url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+payload = {"chat_id": chat_id, "text": message}
+
 logger.info("Sending message")
-bot = Bot(token=os.getenv("TELEGRAM_BOT_TOKEN"))
-bot.send_message(chat_id=os.getenv("TELEGRAM_CHAT_ID"), text="📈 Hello from GitHub Actions!")
+response = requests.post(url, data=payload)
+print("Status code:", response.status_code)
+print("Response:", response.text)
+
