@@ -20,7 +20,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install python-telegram-bot
+        run: pip install requests
 
       - name: Run script
         env:
