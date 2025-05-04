@@ -35,7 +35,7 @@ def send_pdf_via_telegram(pdf_file):
     files['document'].close()  # Always close the file after sending
 
 # Constants
-SYMBOLS = ["RELIANCE.NS", "TCS.NS", "INFY.NS"]
+SYMBOLS = ["BPCL.NS", "NTPC.NS", "GAIL.NS", "TATASTEEL.NS", "ONGC.NS", "IOC.NS"]
 INTERVAL = "30m"
 PERIOD = "30d"
 REPORT_JSON = "prediction_report.json"
@@ -292,10 +292,10 @@ def main():
     send_pdf_via_telegram("prediction_report.pdf")  # Send the PDF after generating it
 
     # Unit Test
-    latest_prices = {
-    "RELIANCE.NS": 2400.0,  # ↓ 4% (trigger stop loss, 3% threshold)
-    "TCS.NS": 3850.0        # ↑ 6.9% (trigger profit booking, 6% threshold)
-    }
+    #latest_prices = {
+    #"RELIANCE.NS": 2400.0,  # ↓ 4% (trigger stop loss, 3% threshold)
+    #"TCS.NS": 3850.0        # ↑ 6.9% (trigger profit booking, 6% threshold)
+    #}
 
     bought_signals = load_bought_signals()
 
