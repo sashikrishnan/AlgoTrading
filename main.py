@@ -23,17 +23,21 @@ def fetch_data(symbol, interval="30m", period="30d"):
     return df
 
 def add_indicators(df):
-    df["ema_12"] = ta.trend.ema_indicator(df["Close"], window=12)
-    df["ema_26"] = ta.trend.ema_indicator(df["Close"], window=26)
-    df["rsi"] = ta.momentum.rsi(df["Close"], window=14)
-    macd = ta.trend.macd(df["Close"])
-    df["macd"] = macd.macd()
-    df["macd_signal"] = macd.macd_signal()
+    close = df["Close"]  # This ensures 1D Series
+    df["ema_12"] = ta.trend.ema_indicator(close, window=12)
+    df["ema_26"] = ta.trend.ema_indicator(close, window=26)
+    df["rsi"] = ta.momentum.rsi(close, window=14)
+    
+    macd_obj = ta.trend.macd(close)
+    df["macd"] = macd_obj.macd()
+    df["macd_signal"] = macd_obj.macd_signal()
+    
     return df
 
 def generate_signal(df):
     latest = df.iloc[-1]
     previous = df.iloc[-2]
+    
     if previous["macd"] < previous["macd_signal"] and latest["macd"] > latest["macd_signal"] and latest["rsi"] < 70:
         return "BUY"
     elif previous["macd"] > previous["macd_signal"] and latest["macd"] < latest["macd_signal"] and latest["rsi"] > 30:
