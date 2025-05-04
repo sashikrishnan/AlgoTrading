@@ -13,11 +13,15 @@ import pytz
 
 import requests
 # Your Telegram Bot Token and Chat ID (replace with your actual values)
-TELEGRAM_BOT_TOKEN = 'your-bot-token'
-TELEGRAM_CHAT_ID = 'your-chat-id'
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
 # Function to send the PDF file via Telegram
 def send_pdf_via_telegram(pdf_file):
+    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+        print("❌ Telegram bot token or chat ID not set")
+        return
+    
     url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendDocument'
     files = {'document': open(pdf_file, 'rb')}
     data = {'chat_id': TELEGRAM_CHAT_ID}
