@@ -266,10 +266,10 @@ def main():
     save_report_to_pdf(all_predictions)  # Prediction PDF
 
     # Unit Test
-    #latest_prices = {
-    #"RELIANCE.NS": 2400.0,  # ↓ 4% (trigger stop loss, 3% threshold)
-    #"TCS.NS": 3850.0        # ↑ 6.9% (trigger profit booking, 6% threshold)
-    #}
+    latest_prices = {
+    "RELIANCE.NS": 2400.0,  # ↓ 4% (trigger stop loss, 3% threshold)
+    "TCS.NS": 3850.0        # ↑ 6.9% (trigger profit booking, 6% threshold)
+    }
 
     bought_signals = load_bought_signals()
 
