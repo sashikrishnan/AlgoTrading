@@ -285,7 +285,7 @@ def main():
     save_report_to_pdf(all_predictions)  # Prediction PDF
     
     # Send the PDF via Telegram
-    send_pdf_via_telegram(prediction_report.pdf)  # Send the PDF after generating it
+    send_pdf_via_telegram("prediction_report.pdf")  # Send the PDF after generating it
 
     # Unit Test
     latest_prices = {
@@ -308,7 +308,7 @@ def main():
         save_sell_signal_report_to_pdf(sell_signals)  # Sell Signal PDF
 
         # Send the PDF via Telegram
-        send_pdf_via_telegram(sell_signals.pdf)  # Send the PDF after generating it
+        send_pdf_via_telegram("sell_signals.pdf")  # Send the PDF after generating it
     else:
         # Remove old file if no new sell signals
         if os.path.exists("sell_signals.json"):
