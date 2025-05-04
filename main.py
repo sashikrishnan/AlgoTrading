@@ -11,6 +11,25 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, 
 from reportlab.lib.styles import getSampleStyleSheet
 import pytz
 
+import requests
+# Your Telegram Bot Token and Chat ID (replace with your actual values)
+BOT_TOKEN = 'your-bot-token'
+CHAT_ID = 'your-chat-id'
+
+# Function to send the PDF file via Telegram
+def send_pdf_via_telegram(pdf_file):
+    url = f'https://api.telegram.org/bot{BOT_TOKEN}/sendDocument'
+    files = {'document': open(pdf_file, 'rb')}
+    data = {'chat_id': CHAT_ID}
+    
+    response = requests.post(url, files=files, data=data)
+    
+    if response.status_code == 200:
+        print("✅ PDF sent successfully via Telegram.")
+    else:
+        print(f"❌ Failed to send PDF: {response.status_code}, {response.text}")
+    files['document'].close()  # Always close the file after sending
+
 # Constants
 SYMBOLS = ["RELIANCE.NS", "TCS.NS", "INFY.NS"]
 INTERVAL = "30m"
@@ -264,6 +283,9 @@ def main():
     # Combine prediction and sell signals for report
     save_report_to_json(all_predictions)  # Prediction Report
     save_report_to_pdf(all_predictions)  # Prediction PDF
+    
+    # Send the PDF via Telegram
+    send_pdf_via_telegram(prediction_report.pdf)  # Send the PDF after generating it
 
     # Unit Test
     latest_prices = {
@@ -284,6 +306,9 @@ def main():
     if sell_signals:
         save_sell_signal_report_to_json(sell_signals)  # Sell Signal Report
         save_sell_signal_report_to_pdf(sell_signals)  # Sell Signal PDF
+
+        # Send the PDF via Telegram
+        send_pdf_via_telegram(sell_signals.pdf)  # Send the PDF after generating it
     else:
         # Remove old file if no new sell signals
         if os.path.exists("sell_signals.json"):
